@@ -118,7 +118,7 @@ Login the EGI AAI Check-In [EGI AAI Check-In](https://aai.egi.eu/fedcloud) servi
 The cluster will be configured with the following templates:
 * torque (default)
 * [centos7-OIDC-IN2P3-IRES_Torque (custom)](ec3/templates/centos7-OIDC-IN2P3-IRES_Torque.radl)
-* [cluster_configure (custom)](ec3/templates/configure_cluster.radl)
+* [cluster_configure (custom)](ec3/templates/cluster_configure.radl)
 * [configure_nfs (custom)](ec3/templates/configure_nfs.radl)
 * [refreshtoken (custom)](ec3/templates/refreshtoken.radl)
 
