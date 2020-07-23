@@ -108,10 +108,10 @@ Where:
 * `id` is the id of the cloud provider (e.g.: `in2p3ostegi`)
 * `host` is the public IP address of the cloud provider Keystone service (e.g.: `https://sbgcloud.in2p3.fr:5000/v3`)
 * `domain` is the project tenant in the cloud provider (e.g.: `EGI_access`)
-* `password` is the access token
+* `password` is the access token (from EGI AAI Check-In)
 
 ## Get an Access Token
-Login the EGI AAI Check-In [EGI AAI Check-In](https://aai.egi.eu/fedcloud) service. Copy and paste in your terminal the CURL command to generate a valid access token valid for 1h. 
+Login the EGI AAI Check-In [EGI AAI Check-In](https://aai.egi.eu/fedcloud) service. Copy and paste in your terminal the CURL command to generate a valid access token valid for <b>1h</b>. 
 
 ## Template used to configure the EC3 cluster
 
@@ -177,6 +177,15 @@ Status of the cluster is monitored on regular basis by CLUES, however the user c
 <pre>
 ]$ clues poweron wn1 wn2
 node wn1 wn2 powered on
+
+[centos@torqueserver ~]$ clues status
+node                          state    enabled   time stable   (cpu,mem) used   (cpu,mem) total
+-----------------------------------------------------------------------------------------------
+wn1                             off    disabled     00h04'20"      0,0              1,-1
+wn2                             off    disabled     00h04'20"      0,0              1,-1
+wn3                             off    enabled      00h04'20"      0,0              1,-1
+wn4                             off    enabled      00h04'20"      0,0              1,-1
+wn5                             off    enabled      00h04'20"      0,0              1,-1
 </pre>
 
 The configuration triggers the execution of several ansible processes to configure the node and may take some times.
