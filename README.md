@@ -89,8 +89,8 @@ To list the available running clusters, use the command:
 
       name          state           IP        nodes 
 ----------------------------------------------------
- haddock-cluster  configured  XXX.XXX.XXX.XXX    0   
-     cluster      configured  XXX.XXX.XXX.XXX   0   
+    cluster_1      configured  XXX.XXX.XXX.XXX    0   
+    cluster_2      configured  XXX.XXX.XXX.XXX   0   
 </pre>
 
 ## Authorization file
@@ -105,9 +105,9 @@ id = PROVIDER_ID; type = OpenStack; host = KEYSTONE_ENDPOINT; username = egi.eu;
 </pre>
 
 Where:
-* `id` is the id of the cloud provider (e.g.: cesgatoegi)
-* `host` is the public IP address of the cloud provider Keystone service (e.g.: https://fedcloud-osservices.egi.cesga.es:5000/v3)
-* `domain` is the project tenant in the cloud provider (e.g.: enmr.eu)
+* `id` is the id of the cloud provider (e.g.: `in2p3ostegi`)
+* `host` is the public IP address of the cloud provider Keystone service (e.g.: `https://sbgcloud.in2p3.fr:5000/v3`)
+* `domain` is the project tenant in the cloud provider (e.g.: `EGI_access`)
 * `password` is the access token
 
 ## Get an Access Token
@@ -118,9 +118,9 @@ Login the EGI AAI Check-In [EGI AAI Check-In](https://aai.egi.eu/fedcloud) servi
 The cluster will be configured with the following templates:
 * torque (default)
 * [centos7-OIDC-IN2P3-IRES_Torque (custom)](ec3/templates/centos7-OIDC-IN2P3-IRES_Torque.radl)
-* [configure_cluster (custom)](ec3/templates/configure_cluster.radl)
+* [cluster_configure(custom)](ec3/templates/configure_cluster.radl)
 * [configure_nfs (custom)](ec3/templates/configure_nfs.radl)
-* [refreshtoken (default)](ec3/templates/refreshtoken.radl)
+* [refreshtoken (cron)](ec3/templates/refreshtoken.radl)
 
 User's templates are stored in: `$HOME/ec3/templates`
 
@@ -164,4 +164,15 @@ To destroy a running cluster, use the command:
 <pre>
 ]$ sudo docker run -ti -v /var/.ec3/clusters:/root/.ec3/clusters grycap/ec3 destroy cluster_name
 </pre>
+
+## Additional information
+
+* [EC3 Command-line Interface](http://ec3.readthedocs.org/en/devel/ec3.html)
+* [Available EC3 templates](http://ec3.readthedocs.org/en/devel/templates.html)
+* Information about available templates: <pre>ec3 templates [--search <topic>] [--full-description]</pre>
+
+## License
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this project except in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0.
+
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
 
