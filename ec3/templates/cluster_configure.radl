@@ -1,0 +1,132 @@
+configure front (
+@begin
+---
+  - vars:
+     - USERS: 
+       - { name: user01, password: "$6$nRKOzOG1i...." }
+       - { name: user02, password: "$6$nRKOzOG1i...." }
+       - { name: user03, password: "$6$nRKOzOG1i...." }
+       - { name: user04, password: "$6$nRKOzOG1i...." }
+       - { name: user05, password: "$6$nRKOzOG1i...." }
+
+    tasks:
+    - user: 
+        name: "{{ item.name }}" 
+        password: "{{ item.password }}"
+        shell: /bin/bash 
+        append: yes 
+        state: present
+      with_items: "{{ USERS }}"
+
+    - name: Install missing dependences in Debian system
+      apt: pkg={{ item }} state=present
+      with_items:
+       - build-essential
+       - mpich
+       - gcc
+       - g++
+       - vim
+       - mlocate
+      become: yes
+      when: ansible_os_family == "Debian"
+
+    - name: Install missing dependences in RedHat distribution
+      yum: pkg={{ item }} state=present
+      with_items:
+       - "@Development Tools"
+       - csh
+       - tcsh
+       - tcl-devel
+       - openmpi
+       - openmpi-devel
+       - gcc-c++.x86_64
+       - mlocate
+       - vim
+      become: yes
+      when: ansible_os_family == "RedHat"
+
+    - name: SSH without password    
+      include_role:
+        name: grycap.ssh
+      vars:
+        ssh_type_of_node: front
+        ssh_user: "{{ user.name }}"
+      loop: '{{ USERS }}'  
+      loop_control:
+        loop_var: user
+
+    #- name: Updating the /etc/hosts.allow file
+    #  lineinfile:
+    #    path: /etc/hosts.allow
+    #    line: 'sshd: XXX.XXX.XXX.*'
+    #  become: yes
+
+@end
+)
+
+configure wn (
+@begin
+---
+  - vars:
+     - USERS: 
+       - { name: user01, password: "$6$nRKOzOG1i...." }
+       - { name: user02, password: "$6$nRKOzOG1i...." }
+       - { name: user03, password: "$6$nRKOzOG1i...." }
+       - { name: user04, password: "$6$nRKOzOG1i...." }
+       - { name: user05, password: "$6$nRKOzOG1i...." }
+
+    tasks:
+    - user:
+        name: "{{ item.name }}"
+        password: "{{ item.password }}"
+        shell: /bin/bash 
+        append: yes 
+        state: present
+      with_items: "{{ USERS }}"
+
+    - name: Install missing dependences in Debian system
+      apt: pkg={{ item }} state=present
+      with_items:
+       - build-essential
+       - mpich
+       - gcc
+       - g++
+       - vim
+       - mlocate
+      become: yes
+      when: ansible_os_family == "Debian"
+
+    - name: Install missing dependences in RedHat distribution
+      yum: pkg={{ item }} state=present
+      with_items:
+       - "@Development Tools" 
+       - csh
+       - tcsh
+       - tcl-devel
+       - openmpi
+       - openmpi-devel
+       - gcc-c++.x86_64
+       - mlocate
+       - vim
+      become: yes
+      when: ansible_os_family == "RedHat"
+
+    - name: SSH without password
+      include_role:
+        name: grycap.ssh
+      vars:
+        ssh_type_of_node: wn
+        ssh_user: "{{ user.name }}"
+      loop: '{{ USERS }}'
+      loop_control:
+        loop_var: user
+
+    #- name: Updating the /etc/hosts.allow file
+    #  lineinfile:
+    #    path: /etc/hosts.allow
+    #    line: 'sshd: XXX.XXX.XXX.*'
+    #  become: yes
+
+@end
+) 
+

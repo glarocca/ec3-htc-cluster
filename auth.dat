@@ -1,0 +1,1 @@
+id = in2p3ostegi; type = OpenStack; host = https://sbgcloud.in2p3.fr:5000/v3; username = egi.eu; tenant = openid; domain = EGI_access; auth_version = 3.x_oidc_access_token; password = '<OIDC_ACCESS_TOKEN>'
