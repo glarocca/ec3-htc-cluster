@@ -177,15 +177,6 @@ Status of the cluster is monitored on regular basis by CLUES, however the user c
 <pre>
 ]$ clues poweron wn1 wn2
 node wn1 wn2 powered on
-
-[centos@torqueserver ~]$ clues status
-node                          state    enabled   time stable   (cpu,mem) used   (cpu,mem) total
------------------------------------------------------------------------------------------------
-wn1                             off    disabled     00h04'20"      0,0              1,-1
-wn2                             off    disabled     00h04'20"      0,0              1,-1
-wn3                             off    enabled      00h04'20"      0,0              1,-1
-wn4                             off    enabled      00h04'20"      0,0              1,-1
-wn5                             off    enabled      00h04'20"      0,0              1,-1
 </pre>
 
 The configuration triggers the execution of several ansible processes to configure the node and may take some times.
@@ -197,9 +188,18 @@ as it follows:
 
 <pre>
 [centos@torqueserver ~]$ clues disable wn1 wn2
+
+[centos@torqueserver ~]$ clues status
+node                          state    enabled   time stable   (cpu,mem) used   (cpu,mem) total
+-----------------------------------------------------------------------------------------------
+wn1                             off    disabled     00h04'20"      0,0              1,-1
+wn2                             off    disabled     00h04'20"      0,0              1,-1
+wn3                             off    enabled      00h04'20"      0,0              1,-1
+wn4                             off    enabled      00h04'20"      0,0              1,-1
+wn5                             off    enabled      00h04'20"      0,0              1,-1
 </pre>
 
-### Enable Password-based authentication
+## Enable Password-based authentication
 Change settings in `/etc/ssh/sshd_config`
 
 <pre>
@@ -244,6 +244,11 @@ To destroy a running cluster, use the command:
 <pre>
 ]$ sudo docker run -ti -v /var/.ec3/clusters:/root/.ec3/clusters grycap/ec3 destroy cluster_name
 </pre>
+
+## Logs file
+* CLUES log file: `/var/log/clues2/clues2.log`
+* IM log file: `/var/log/im/im.log`
+* Torque/MAUI: `/var/log/torque/server_logs/`
 
 ## Additional information
 
