@@ -175,8 +175,8 @@ wn5                             off    enabled     00h04'20"      0,0           
 Status of the cluster is monitored on regular basis by CLUES, however the user can decide to force the starting/stopping of nodes using the CLI:
 
 <pre>
-]$ clues poweron wn1
-node wn1 powered on
+]$ clues poweron wn1 wn2
+node wn1 wn2 powered on
 </pre>
 
 The configuration triggers the execution of several ansible processes to configure the node and may take some times.
@@ -187,7 +187,7 @@ To avoid that clues poweroff the node in case of inactivities, once the node is 
 as it follows:
 
 <pre>
-[centos@torqueserver ~]$ clues disable wn1
+[centos@torqueserver ~]$ clues disable wn1 wn2
 </pre>
 
 ### Enable Password-based authentication
@@ -204,7 +204,29 @@ and restart the sshd daemon
 ]# sudo service sshd restart
 </pre>
 
+## Testing the cluster
+Access the cluster with one of the available account:
 
+<pre>
+]$ ssh user01@XXX.XXX.XXX
+</pre>
+
+Create a simple test file:
+</pre>
+]$ cat test.sh
+#!/bin/bash
+#PBS -N job
+#PBS -q batch
+
+#cd $PBS_O_WORKDIR/
+hostname -f
+sleep 5
+</pre>
+
+Submit to the batch queue:
+<pre>
+]$ qsub -l nodes=2 test.sh
+</pre>
 
 ## Destroy the EC3 cluster
 
@@ -219,4 +241,5 @@ To destroy a running cluster, use the command:
 * [EC3 Command-line Interface](http://ec3.readthedocs.org/en/devel/ec3.html)
 * [Available EC3 templates](http://ec3.readthedocs.org/en/devel/templates.html)
 * Information about available templates: <pre>ec3 templates [--search <topic>] [--full-description]</pre>
+* Webinar: https://indico.egi.eu/event/5092/
 
