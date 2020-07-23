@@ -221,7 +221,7 @@ Access the cluster with one of the available account:
 </pre>
 
 Create a simple test file:
-</pre>
+<pre>
 ]$ cat test.sh
 #!/bin/bash
 #PBS -N job
