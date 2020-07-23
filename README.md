@@ -157,6 +157,53 @@ Last login: Sat Jul 20 07:14:36 2020 from XXX.XXX.XXX.XXX
 [centos@torqueserver ~]$ 
 </pre>
 
+## Configuration of the cluster
+
+Check status of the nodes of the cluster:
+
+<pre>
+[centos@torqueserver ~]$ clues status
+node                          state    enabled   time stable   (cpu,mem) used   (cpu,mem) total
+-----------------------------------------------------------------------------------------------
+wn1                             off    enabled     00h04'20"      0,0              1,-1
+wn2                             off    enabled     00h04'20"      0,0              1,-1
+wn3                             off    enabled     00h04'20"      0,0              1,-1
+wn4                             off    enabled     00h04'20"      0,0              1,-1
+wn5                             off    enabled     00h04'20"      0,0              1,-1
+</pre>
+
+Status of the cluster is monitored on regular basis by CLUES, however the user can decide to force the starting/stopping of nodes using the CLI:
+<pre>
+]$ clues poweron wn1
+node wn1 powered on
+
+The configuration triggers the execution of several ansible processes to configure the node and may take some times.
+To monitor the configuration of the node, you can use the is_cluster_ready command
+Logs files are available in tail -f /var/tmp/.im/...
+
+To avoid that clues poweroff the node in case of inactivities, once the node is configured, you can disable the node
+as it follows:
+
+<pre>
+[centos@torqueserver ~]$ clues disable wn1
+</pre>
+
+### Enable Password-based authentication
+Change settings in `/etc/ssh/sshd_config`
+
+<pre>
+# Change to no to disable tunnelled clear text passwords
+PasswordAuthentication yes
+</pre>
+
+and restart the sshd daemon
+
+<pre>
+]# sudo service sshd restart
+</pre>
+
+
+
 ## Destroy the EC3 cluster
 
 To destroy a running cluster, use the command:
