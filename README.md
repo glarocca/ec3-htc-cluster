@@ -135,15 +135,15 @@ To launch a cluster, you can use the recipes that you have locally by mounting t
                  torque centos7-OIDC-IN2P3-IRES_Torque cluster_configure refreshtoken configure_nfs \
                  -a /tmp/auth.dat
 
-   Creating infrastructure
-   Infrastructure successfully created with ID: 529c62ec-343e-11e9-8b1d-300000000002
-   Front-end state: launching
-   Front-end state: pending
-   Front-end state: running
-   IP: XXX.XXX.XXX.XXX
-   Front-end configured with IP XXX.XXX.XXX.XXX
-   Transferring infrastructure
-   Front-end ready!
+Creating infrastructure
+Infrastructure successfully created with ID: 529c62ec-343e-11e9-8b1d-300000000002
+Front-end state: launching
+Front-end state: pending
+Front-end state: running
+IP: XXX.XXX.XXX.XXX
+Front-end configured with IP XXX.XXX.XXX.XXX
+Transferring infrastructure
+Front-end ready!
 </pre>
 
 ## Access the EC3 cluster
@@ -173,12 +173,14 @@ wn5                             off    enabled     00h04'20"      0,0           
 </pre>
 
 Status of the cluster is monitored on regular basis by CLUES, however the user can decide to force the starting/stopping of nodes using the CLI:
+
 <pre>
 ]$ clues poweron wn1
 node wn1 powered on
+</pre>
 
 The configuration triggers the execution of several ansible processes to configure the node and may take some times.
-To monitor the configuration of the node, you can use the is_cluster_ready command
+To monitor the configuration of the node, you can use the `is_cluster_ready` command
 Logs files are available in tail -f /var/tmp/.im/...
 
 To avoid that clues poweroff the node in case of inactivities, once the node is configured, you can disable the node
