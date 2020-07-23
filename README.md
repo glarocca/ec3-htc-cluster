@@ -254,6 +254,5 @@ To destroy a running cluster, use the command:
 
 * [EC3 Command-line Interface](http://ec3.readthedocs.org/en/devel/ec3.html)
 * [Available EC3 templates](http://ec3.readthedocs.org/en/devel/templates.html)
-* Information about available templates: <pre>ec3 templates [--search <topic>] [--full-description]</pre>
 * Webinar: https://indico.egi.eu/event/5092/
 
